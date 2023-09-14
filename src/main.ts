@@ -134,15 +134,22 @@ const RecetteTest : IRecette = {
 }
 
 bulleButton.addEventListener("click", async () => {
-    afficherUneRecette(RecetteTest);
     
-    // if(input1.value.length > 0 ){
-    // }
-    
-    input1.value = "";
-    input2.value = "";
-    input3.value = "";
-    input4.value = "";
-    
+    if(input1.value.length > 0 ){
+        afficherUneRecette(RecetteTest);
+
+        const res =  fetch("http://localhost:3000/add/:recette" + RecetteTest)
+        const message = (await res).text()
+        console.log(message)
+        
+        input1.value = "";
+        input2.value = "";
+        input3.value = "";
+        input4.value = "";
+    }
+
+    else {
+        alert("Rentrer au moins un caractère")
+    }
 });
     
