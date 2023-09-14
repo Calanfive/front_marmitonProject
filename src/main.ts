@@ -4,6 +4,7 @@ const title = document.createElement('h1');
 title.setAttribute("id","section_top");
 title.innerText = 'Marmitop';
 title.style.textAlign = 'center'
+title.style.fontSize = '60px';
 
 const section_box1 = document.createElement('div');
 
@@ -69,22 +70,51 @@ bulleButton.appendChild(button)
 
 section_box1.appendChild(bulleButton);
 
-const section_title1= document.createElement('h2');
-section_title1.innerText = 'Mes recettes';
-section_title1.classList.add('section_title1');
 
-const section_box2= document.createElement('div');
-section_box2.innerText = 'Les choux à la fraise';
-section_box2.classList.add('section_box2');
 
-const section_box3= document.createElement('div');
-section_box3.innerText = 'Les choux à la crème';
-section_box3.classList.add('section_box3');
+const section_h2= document.createElement('h2');
+section_h2.innerText = 'Mes recettes';
+section_h2.classList.add('section_h2');
+
+const section_recettes = document.createElement('div')
+section_recettes.classList.add('section_recettes');
+
+
+// const maRecette = [
+//     { recette: "Les choux à la fraise"}, 
+//     { Note: }, 
+//     { label: "note", placeholder: 'titi'},
+// ]
+
+
+// for (let i = 0; i < inputsLabels.length; i++) {
+//     const element = inputsLabels[i];
+//     const label_input1 = document.createElement('div') 
+
+//     const label1 = document.createElement('p');
+//     label1.innerText = element.label
+//     const input1 = document.createElement('input');
+//     input1.placeholder = element.placeholder
+
+//     label_input1.appendChild(label1);
+//     label_input1.appendChild(input1);
+
+//     document.body.appendChild(label_input1)
+// }
+
+// const section_box2= document.createElement('div');
+// section_box2.innerText = 'Les choux à la fraise';
+// section_box2.classList.add('section_box2');
+
+// const section_box3= document.createElement('div');
+// section_box3.innerText = 'Les choux à la crème';
+// section_box3.classList.add('section_box3');
+
 
 const body_page = document.querySelector('#app') as HTMLDivElement;
 
-body_page.appendChild(title)
-body_page.appendChild(section_box1)
-// body_page.appendChild(section_title1)
-// body_page.appendChild(section_box2)
-// body_page.appendChild(section_box3)
+body_page.appendChild(title);
+body_page.appendChild(section_box1);
+body_page.appendChild(section_h2);
+body_page.appendChild(section_recettes);
+
