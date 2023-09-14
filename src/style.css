@@ -16,7 +16,7 @@ body {
 .section_box1 {
   display: flex;
   flex-direction: column;
-  margin: 20px 200px 20px 200px;
+  margin: 0 15% 0 15%;
 }
 
 .section_inputs {
@@ -46,4 +46,35 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+h2{
+  text-align: center;
+  font-size: 30px;
+}
+
+.section_recettes{
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+}
+
+.text_part{
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+
+.url_part{
+  display: flex;
+  width: 40%;
+}
+
+.la_recette {
+  border: 1px solid black;
+  padding: 2%;
+  margin: 2% 15% 2% 15%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }

@@ -1,5 +1,13 @@
 import './style.css';
 
+    
+interface IRecette { 
+    nom_recette: string, 
+    note: string, 
+    duree: string,
+    lien_image: string
+}
+
 const title = document.createElement('h1');
 title.setAttribute("id","section_top");
 title.innerText = 'Marmitop';
@@ -65,56 +73,76 @@ section_inputs.appendChild(label_input4);
 section_box1.appendChild(section_inputs);
 
 const bulleButton = document.createElement('div')
-bulleButton.classList.add('bulle-button')
-bulleButton.appendChild(button)
+bulleButton.classList.add('bulle-button');
+bulleButton.appendChild(button);
 
 section_box1.appendChild(bulleButton);
-
 
 
 const section_h2= document.createElement('h2');
 section_h2.innerText = 'Mes recettes';
 section_h2.classList.add('section_h2');
 
+const body_page = document.querySelector('#app') as HTMLDivElement;
+
 const section_recettes = document.createElement('div')
 section_recettes.classList.add('section_recettes');
-
-
-// const maRecette = [
-//     { recette: "Les choux à la fraise"}, 
-//     { Note: }, 
-//     { label: "note", placeholder: 'titi'},
-// ]
-
-
-// for (let i = 0; i < inputsLabels.length; i++) {
-//     const element = inputsLabels[i];
-//     const label_input1 = document.createElement('div') 
-
-//     const label1 = document.createElement('p');
-//     label1.innerText = element.label
-//     const input1 = document.createElement('input');
-//     input1.placeholder = element.placeholder
-
-//     label_input1.appendChild(label1);
-//     label_input1.appendChild(input1);
-
-//     document.body.appendChild(label_input1)
-// }
-
-// const section_box2= document.createElement('div');
-// section_box2.innerText = 'Les choux à la fraise';
-// section_box2.classList.add('section_box2');
-
-// const section_box3= document.createElement('div');
-// section_box3.innerText = 'Les choux à la crème';
-// section_box3.classList.add('section_box3');
-
-
-const body_page = document.querySelector('#app') as HTMLDivElement;
 
 body_page.appendChild(title);
 body_page.appendChild(section_box1);
 body_page.appendChild(section_h2);
 body_page.appendChild(section_recettes);
 
+
+
+function afficherUneRecette(maRecette: IRecette){
+
+    const text_part = document.createElement('div')
+    text_part.classList.add('text_part');
+    
+    const titreRecette = document.createElement('h3')
+    titreRecette.classList.add('titreRecette');
+    titreRecette.innerText = maRecette.nom_recette;
+    text_part.appendChild(titreRecette);
+    
+    const noteRecette = document.createElement('p')
+    noteRecette.classList.add('p1');
+    noteRecette.innerText = maRecette.note;
+    text_part.appendChild(noteRecette);
+
+    const dureeRecette = document.createElement('p')
+    dureeRecette.classList.add('p2');
+    dureeRecette.innerText = maRecette.duree;
+    text_part.appendChild(dureeRecette);
+    
+    const url_part = document .createElement('img')
+    url_part.setAttribute('src', maRecette.lien_image);
+
+    const larecette = document.createElement('div')
+    larecette.classList.add('la_recette');
+    
+    larecette.appendChild(text_part);
+    larecette.appendChild(url_part);
+    section_recettes.appendChild(larecette);
+}
+    
+const RecetteTest : IRecette = { 
+    nom_recette: "Les choux à la fraise", 
+    note: "4/5", 
+    duree: "55 minutes",
+    lien_image: "url"
+}
+
+bulleButton.addEventListener("click", async () => {
+    afficherUneRecette(RecetteTest);
+    
+    // if(input1.value.length > 0 ){
+    // }
+    
+    input1.value = "";
+    input2.value = "";
+    input3.value = "";
+    input4.value = "";
+    
+});
+    
