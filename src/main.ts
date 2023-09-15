@@ -11,7 +11,7 @@ interface IRecette {
 const title = document.createElement('h1');
 title.setAttribute("id","section_top");
 title.innerText = 'Marmitop';
-title.style.textAlign = 'center'
+title.style.textAlign = 'center';
 title.style.fontSize = '60px';
 
 const section_box1 = document.createElement('div');
@@ -87,6 +87,7 @@ const body_page = document.querySelector('#app') as HTMLDivElement;
 const section_recettes = document.createElement('div')
 section_recettes.classList.add('section_recettes');
 
+
 body_page.appendChild(title);
 body_page.appendChild(section_box1);
 body_page.appendChild(section_h2);
@@ -114,10 +115,19 @@ function afficherUneRecette(maRecette: IRecette){
     
     const url_part = document.createElement('img')
     url_part.setAttribute('src', maRecette.lien_image);
-
-
+    
     const larecette = document.createElement('div')
     larecette.classList.add('la_recette');
+    
+    //option delete
+    const deleteBtn = document.createElement('button')
+    deleteBtn.setAttribute('type', 'button');
+    deleteBtn.innerText = 'Supprimer';
+    deleteBtn.classList.add('deleteBtn');
+    text_part.appendChild(deleteBtn);
+    deleteBtn.addEventListener("click", () => {
+        larecette.remove();
+    })
     
     larecette.appendChild(text_part);
     larecette.appendChild(url_part);
@@ -135,27 +145,28 @@ bulleButton.addEventListener("click", async () => {
         }
         const response2 = await fetch("http://localhost:3030/recipes", {
             headers: new Headers({
-            "Content-Type": "application/json",
+                "Content-Type": "application/json",
             }),
             method: "POST",
             body: JSON.stringify(maRecette),
         })
         const data = await response2.json()
         console.log("ma donnée", data);
-
+        
         afficherUneRecette(maRecette);
         
         inputNom.value = "";
         inputLien.value = "";
         inputDuree.value = "";
         inputNote.value = "";
+        
     }
-
+    
     else {
         alert("Rentrer au moins un caractère")
     }
 });
-    
+
 // Get all recipes
 const response = await fetch('http://localhost:3030/recipes')
 const mesRecettes = await response.json()
