@@ -125,14 +125,21 @@ function afficherUneRecette(maRecette: IRecette){
     deleteBtn.innerText = 'Supprimer';
     deleteBtn.classList.add('deleteBtn');
     text_part.appendChild(deleteBtn);
-    deleteBtn.addEventListener("click", () => {
+    deleteBtn.addEventListener("click", async() => {
+        // Delete 1 by 1
+        const response3 = await fetch('http://localhost:3030/recipes/', {
+            method: "DELETE",
+        })
+        const message_deleted = await response3.text()
+        console.log('Recipe deleted '+message_deleted);
         larecette.remove();
     })
     
     larecette.appendChild(text_part);
     larecette.appendChild(url_part);
     section_recettes.appendChild(larecette);
-}
+}        
+
 
 bulleButton.addEventListener("click", async () => {   
     if(inputNom.value.length > 0 ){
@@ -142,14 +149,14 @@ bulleButton.addEventListener("click", async () => {
             note: inputNote.value, 
             duree: inputDuree.value,
             lien_image: inputLien.value
-        }
+        }    
         const response2 = await fetch("http://localhost:3030/recipes", {
             headers: new Headers({
                 "Content-Type": "application/json",
-            }),
+            }),    
             method: "POST",
             body: JSON.stringify(maRecette),
-        })
+        })    
         const data = await response2.json()
         console.log("ma donnée", data);
         
@@ -160,12 +167,12 @@ bulleButton.addEventListener("click", async () => {
         inputDuree.value = "";
         inputNote.value = "";
         
-    }
+    }        
     
     else {
         alert("Rentrer au moins un caractère")
-    }
-});
+    }        
+});        
 
 // Get all recipes
 const response = await fetch('http://localhost:3030/recipes')
@@ -180,7 +187,8 @@ for (let i = 0; i < mesRecettes.length; i++) {
         note: element.note,
         lien_image: element.url,
         nom_recette: element.recette,
-    }
-
+    }        
+    
     afficherUneRecette(recetteToShow)
-}
+}        
+
