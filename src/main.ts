@@ -19,10 +19,10 @@ const section_box1 = document.createElement('div');
 const section_inputs = document.createElement('div');
 section_inputs.classList.add('section_inputs');
 
-const input1 = document.createElement('input');
-const input2 = document.createElement('input');
-const input3 = document.createElement('input');
-const input4 = document.createElement('input');
+const inputNom = document.createElement('input');
+const inputLien = document.createElement('input');
+const inputDuree = document.createElement('input');
+const inputNote = document.createElement('input');
 const label1 = document.createElement('p');
 const label2 = document.createElement('p');
 const label3 = document.createElement('p');
@@ -33,10 +33,10 @@ label1.innerText = 'nom';
 label2.innerText = 'lien image';
 label3.innerText = 'durée';
 label4.innerText = 'note';
-input1.setAttribute('type', 'text');
-input2.setAttribute('type', 'text');
-input3.setAttribute('type', 'text');
-input4.setAttribute('type', 'text');
+inputNom.setAttribute('type', 'text');
+inputLien.setAttribute('type', 'text');
+inputDuree.setAttribute('type', 'text');
+inputNote.setAttribute('type', 'text');
 
 section_box1.style.border = "1px solid black";
 section_box1.classList.add('section_box1');
@@ -54,16 +54,16 @@ label_input3.classList.add('label_input');
 label_input4.classList.add('label_input');
 
 label_input1.appendChild(label1);
-label_input1.appendChild(input1);
+label_input1.appendChild(inputNom);
 
 label_input2.appendChild(label2);
-label_input2.appendChild(input2);
+label_input2.appendChild(inputLien);
 
 label_input3.appendChild(label3);
-label_input3.appendChild(input3);
+label_input3.appendChild(inputDuree);
 
 label_input4.appendChild(label4);
-label_input4.appendChild(input4);
+label_input4.appendChild(inputNote);
 
 section_inputs.appendChild(label_input1);
 section_inputs.appendChild(label_input2);
@@ -96,7 +96,6 @@ body_page.appendChild(section_recettes);
 
 
 function afficherUneRecette(maRecette: IRecette){
-
     const text_part = document.createElement('div')
     text_part.classList.add('text_part');
     
@@ -125,27 +124,32 @@ function afficherUneRecette(maRecette: IRecette){
     larecette.appendChild(url_part);
     section_recettes.appendChild(larecette);
 }
-    
-const RecetteTest : IRecette = { 
-    nom_recette: "Les choux à la fraise", 
-    note: "4/5", 
-    duree: "55 minutes",
-    lien_image: "url"
-}
 
-bulleButton.addEventListener("click", async () => {
-    
-    if(input1.value.length > 0 ){
-        afficherUneRecette(RecetteTest);
-
-        const res =  fetch("http://localhost:3000/add/:recette" + RecetteTest)
-        const message = (await res).text()
-        console.log(message)
+bulleButton.addEventListener("click", async () => {   
+    if(inputNom.value.length > 0 ){
         
-        input1.value = "";
-        input2.value = "";
-        input3.value = "";
-        input4.value = "";
+        const maRecette : IRecette = { 
+            nom_recette: inputNom.value, 
+            note: inputNote.value, 
+            duree: inputDuree.value,
+            lien_image: inputLien.value
+        }
+        const response2 = await fetch("http://localhost:3030/recipes", {
+            headers: new Headers({
+            "Content-Type": "application/json",
+            }),
+            method: "POST",
+            body: JSON.stringify(maRecette),
+        })
+        const data = await response2.json()
+        console.log("ma donnée", data)
+
+        afficherUneRecette(maRecette);
+        
+        inputNom.value = "";
+        inputLien.value = "";
+        inputDuree.value = "";
+        inputNote.value = "";
     }
 
     else {
@@ -153,3 +157,19 @@ bulleButton.addEventListener("click", async () => {
     }
 });
     
+// Get all recipes
+const response = await fetch('http://localhost:3030/recipes')
+const mesRecettes = await response.json()
+console.log('Mes recettes', mesRecettes);
+
+for (let i = 0; i < mesRecettes.length; i++) {
+    const element = mesRecettes[i];
+    console.log('ma recette à afficher', element)
+    const recetteToShow: IRecette = {
+        duree: element.duree,
+        note: element.note,
+        lien_image: element.url,
+        nom_recette: element.recette,
+    }
+    afficherUneRecette(recetteToShow)
+}
