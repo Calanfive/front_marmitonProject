@@ -23,16 +23,16 @@ const inputNom = document.createElement('input');
 const inputLien = document.createElement('input');
 const inputDuree = document.createElement('input');
 const inputNote = document.createElement('input');
-const label1 = document.createElement('p');
-const label2 = document.createElement('p');
-const label3 = document.createElement('p');
-const label4 = document.createElement('p');
+const labelNom = document.createElement('p');
+const labelLien = document.createElement('p');
+const labelDuree = document.createElement('p');
+const labelNote = document.createElement('p');
 const button = document.createElement('button');
 
-label1.innerText = 'nom';
-label2.innerText = 'lien image';
-label3.innerText = 'durée';
-label4.innerText = 'note';
+labelNom.innerText = 'nom';
+labelLien.innerText = 'lien image';
+labelDuree.innerText = 'durée';
+labelNote.innerText = 'note';
 inputNom.setAttribute('type', 'text');
 inputLien.setAttribute('type', 'text');
 inputDuree.setAttribute('type', 'text');
@@ -44,31 +44,31 @@ section_box1.classList.add('section_box1');
 button.setAttribute('type', 'button');
 button.innerText = 'Ajouter';
 
-const label_input1 = document.createElement('div') 
-const label_input2 = document.createElement('div')
-const label_input3 = document.createElement('div') 
-const label_input4 = document.createElement('div')
-label_input1.classList.add('label_input');
-label_input2.classList.add('label_input');
-label_input3.classList.add('label_input');
-label_input4.classList.add('label_input');
+const label_inputNom = document.createElement('div') 
+const label_inputLien = document.createElement('div')
+const label_inputDuree = document.createElement('div') 
+const label_inputNote = document.createElement('div')
+label_inputNom.classList.add('label_input');
+label_inputLien.classList.add('label_input');
+label_inputDuree.classList.add('label_input');
+label_inputNote.classList.add('label_input');
 
-label_input1.appendChild(label1);
-label_input1.appendChild(inputNom);
+label_inputNom.appendChild(labelNom);
+label_inputNom.appendChild(inputNom);
 
-label_input2.appendChild(label2);
-label_input2.appendChild(inputLien);
+label_inputLien.appendChild(labelLien);
+label_inputLien.appendChild(inputLien);
 
-label_input3.appendChild(label3);
-label_input3.appendChild(inputDuree);
+label_inputDuree.appendChild(labelDuree);
+label_inputDuree.appendChild(inputDuree);
 
-label_input4.appendChild(label4);
-label_input4.appendChild(inputNote);
+label_inputNote.appendChild(labelNote);
+label_inputNote.appendChild(inputNote);
 
-section_inputs.appendChild(label_input1);
-section_inputs.appendChild(label_input2);
-section_inputs.appendChild(label_input3);
-section_inputs.appendChild(label_input4);
+section_inputs.appendChild(label_inputNom);
+section_inputs.appendChild(label_inputLien);
+section_inputs.appendChild(label_inputDuree);
+section_inputs.appendChild(label_inputNote);
 
 section_box1.appendChild(section_inputs);
 
@@ -77,7 +77,6 @@ bulleButton.classList.add('bulle-button');
 bulleButton.appendChild(button);
 
 section_box1.appendChild(bulleButton);
-
 
 const section_h2= document.createElement('h2');
 section_h2.innerText = 'Mes recettes';
@@ -94,7 +93,6 @@ body_page.appendChild(section_h2);
 body_page.appendChild(section_recettes);
 
 
-
 function afficherUneRecette(maRecette: IRecette){
     const text_part = document.createElement('div')
     text_part.classList.add('text_part');
@@ -106,16 +104,17 @@ function afficherUneRecette(maRecette: IRecette){
     
     const noteRecette = document.createElement('p')
     noteRecette.classList.add('p1');
-    noteRecette.innerText = maRecette.note;
+    noteRecette.innerText = ("Note: "+maRecette.note);
     text_part.appendChild(noteRecette);
 
     const dureeRecette = document.createElement('p')
     dureeRecette.classList.add('p2');
-    dureeRecette.innerText = maRecette.duree;
+    dureeRecette.innerText = ("Durée: "+maRecette.duree+" minutes");
     text_part.appendChild(dureeRecette);
     
-    const url_part = document .createElement('img')
+    const url_part = document.createElement('img')
     url_part.setAttribute('src', maRecette.lien_image);
+
 
     const larecette = document.createElement('div')
     larecette.classList.add('la_recette');
@@ -142,7 +141,7 @@ bulleButton.addEventListener("click", async () => {
             body: JSON.stringify(maRecette),
         })
         const data = await response2.json()
-        console.log("ma donnée", data)
+        console.log("ma donnée", data);
 
         afficherUneRecette(maRecette);
         
@@ -171,5 +170,6 @@ for (let i = 0; i < mesRecettes.length; i++) {
         lien_image: element.url,
         nom_recette: element.recette,
     }
+
     afficherUneRecette(recetteToShow)
 }
